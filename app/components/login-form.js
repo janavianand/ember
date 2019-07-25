@@ -1,13 +1,22 @@
 import Component from '@glimmer/component';
 import {action} from '@ember/object'
 import {tracked} from '@glimmer/tracking'
+import {inject as service} from '@ember/service'
+import AuthService from 'shlack/services/auth';
 
 export default class LoginFormComponent extends Component {
 
   @tracked userId = null;
+  /**
+   * @type {AuthService}
+   */
+
+  //sets the object when logged in and clears when logged out
+  @service auth
 
   handleLogin(){
     console.log('userId=',this.userId);
+    this.auth.loginWithUserId(this.userId)
   }
   get isDisabled(){
     return !this.userId
